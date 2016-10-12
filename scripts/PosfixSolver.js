@@ -1,4 +1,4 @@
-class MathSolver {
+class PosfixSolver {
 
     validateInfix(infix) {
         let balance = 0;
@@ -11,7 +11,8 @@ class MathSolver {
         }
 
         // valid values: integers and identifiers
-        let value = '(\\d+w*)';
+        //let value = '(\\d+w*)';
+        let value = '(\\d+|[a-zA-Z_]\\w*)';
         // the unary '+' and '-'
         let unaryOper = '[\\+\\-]?';
         // the arithmetic operators
@@ -27,7 +28,6 @@ class MathSolver {
 
         // the combined final regex: /[\+\-]?(\d+|[a-zA-Z_]\w*)(([\+\-\*\/]|(\<\=?|\>\=?|\=\=|\!\=))[\+\-]?(\d+|[a-zA-Z_]\w*))*/
         let regex = new RegExp(unaryOper + value + '((' + arithOper + '|' + compOper + ')' + unaryOper + value + ')*');
-
         // validate parenthesis balance
         for (let i = 0; i < infix.length; i++) {
             if (infix[i] == '(') {
@@ -76,7 +76,7 @@ class MathSolver {
                 precedence: 2,
                 associativity: "Left"
             }
-        }
+        };
         infix = infix.replace(/\s+/g, "");
         infix = infix.split(/([\+\-\*\/\^\(\)])/).clean();
         infix.forEach((token)=>{
@@ -98,7 +98,7 @@ class MathSolver {
                 }
                 operatorStack.pop();
             }
-        })
+        });
         while(operatorStack.length > 0) {
             outputQueue += operatorStack.pop() + " ";
         }
@@ -126,7 +126,7 @@ class MathSolver {
                     resultStack.push(Math.pow(parseInt(b), parseInt(a)));
                 }
             }
-        })
+        });
         if(resultStack.length > 1) {
             return "error";
         } else {
@@ -136,4 +136,4 @@ class MathSolver {
  
 }
 
-export default MathSolver
+export default PosfixSolver

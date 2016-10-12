@@ -1,8 +1,8 @@
-import postFixSolver from './PosfixSolver.js';
+import PostFixSolver from './PosfixSolver.js';
 
 class Control {
     constructor() {
-        this.postfix = new postFixSolver();
+        this.postfix = new PostFixSolver();
         this.setupInfixInput();
     }
 
@@ -10,11 +10,11 @@ class Control {
         let posfix = this.postfix;
         $('#infija').on('input propertychange paste', (event) => {
             let infijaVal = $(event.currentTarget).val();
-            let validExpresion = posfix.validateInfix(infijaVal);
+            let validExpression = posfix.validateInfix(infijaVal);
 
-            this.invalidateInfix(validExpresion);
+            this.invalidateInfix(validExpression);
 
-            if(infijaVal.length>0 && validExpresion){
+            if(infijaVal.length>0 && validExpression){
                 let posfixExp = posfix.infixToPostfix(infijaVal);
                 this.setPosfix(posfixExp);
                 if(posfixExp){
